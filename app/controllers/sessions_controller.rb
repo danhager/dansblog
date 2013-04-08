@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login, :only => [:new, :create]
+  skip_before_filter :require_login, :only => [:new, :create, :destroy]
 
   def new
   end
@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to new_session_path, :notice => "Logged out!"
+    #redirect_to new_session_path, :notice => "Logged out!"
+    redirect_to log_in_path, :notice => "Logged out!"
   end
 end
