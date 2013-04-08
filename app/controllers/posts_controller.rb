@@ -13,6 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(params[:post])
+    @post.poster = current_user.email 
     if @post.save
       redirect_to posts_path, :notice => "Post successful!" 
     else

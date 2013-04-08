@@ -5,6 +5,7 @@
   <ul>
     <h2><%= link_to post.title, post_path(post) %></h2>
     <p><%= post.content %></p>  
+    <p><%= post.poster %></p>  
     <p>
       <%= link_to "Edit Post", edit_post_path(post) %>
       |
@@ -16,4 +17,4 @@
 
 <% end %>
 
-<p><%= button_to "Create New Post", new_post_path, :method => "get" %>
+<p><%= button_to "Create New Post", new_post_path, :method => "get" %></p>
