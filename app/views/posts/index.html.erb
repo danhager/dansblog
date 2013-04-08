@@ -1,0 +1,19 @@
+<h1>Posts</h1>
+<p>A list of all of the posts.</p>
+
+<% @posts.each do |post| %>
+  <ul>
+    <h2><%= link_to post.title, post_path(post) %></h2>
+    <p><%= post.content %></p>  
+    <p>
+      <%= link_to "Edit Post", edit_post_path(post) %>
+      |
+      <%= link_to "Delete Post", post,
+      :confirm =>"Are you sure you want to delete the post titled, \"#{post.title}\" ?", :method => :delete %>
+    <hr></hr>
+    </p>
+  </ul>
+
+<% end %>
+
+<p><%= button_to "Create New Post", new_post_path, :method => "get" %>
