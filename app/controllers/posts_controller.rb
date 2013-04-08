@@ -27,7 +27,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-
+    @post.editor = current_user.email
     if @post.update_attributes(params[:post])
       redirect_to posts_path, :notice => "The post has been updated."
     else

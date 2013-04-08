@@ -5,7 +5,14 @@
   <ul>
     <h2><%= link_to post.title, post_path(post) %></h2>
     <p><%= post.content %></p>  
-    <p><%= post.poster %></p>  
+
+    <small><%= "Posted by: " + post.poster.to_s %></small>  
+    <% if post.editor != nil %>
+      <br />
+      <small><%= "Last edited by " + post.editor.to_s + "; " + 
+             post.updated_at.strftime("%B %d, %Y at %l:%M %p") %></small>
+    <% end %>
+
     <p>
       <%= link_to "Edit Post", edit_post_path(post) %>
       |
