@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'sqlite3'
+gem 'jquery_mobile_rails'
 
 gem 'bcrypt-ruby', :require => "bcrypt"
 

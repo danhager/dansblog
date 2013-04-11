@@ -10,4 +10,20 @@
  *
  *= require_self
  *= require_tree .
+ *= require jquery.mobile
  */
+
+h2
+{
+  color:orange;
+  margin: 0px;
+}
+
+html {
+}
+
+body
+{
+  background-color:#fff;
+  color:#000;
+}

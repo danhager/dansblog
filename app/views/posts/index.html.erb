@@ -1,12 +1,15 @@
-<h1>Posts</h1>
-<p>A list of all of the posts.</p>
+<div data-role='header'>
+  <h1>Posts</h1>
+  <p>A list of all of the posts.</p>
+</div>
 
 <% @posts.each do |post| %>
   <ul>
-    <h2><%= link_to post.title, post_path(post) %></h2>
+    <h2> <%= link_to post.title, post_path(post) %></h2>
+    <small><%= "Post date: " + post.created_at.strftime("%B %d, %Y at %l:%M %p") %> </small> <br /> 
+    <small><%= "Posted by: " + post.poster.to_s %></small>
     <p><%= post.content %></p>  
 
-    <small><%= "Posted by: " + post.poster.to_s %></small>  
     <% if post.editor != nil %>
       <br />
       <small><%= "Last edited by " + post.editor.to_s + "; " + 
@@ -14,12 +17,17 @@
     <% end %>
 
     <p>
-      <%= link_to "Edit Post", edit_post_path(post) %>
-      |
-      <%= link_to "Delete Post", post,
-      :confirm =>"Are you sure you want to delete the post titled, \"#{post.title}\" ?", :method => :delete %>
-    <hr></hr>
+      <% if current_user.admin == "1" || current_user.email == post.poster %>
+        <%= link_to "Edit Post", edit_post_path(post) %>
+      <% end %>
+      <% if current_user.admin == "1" || current_user.email == post.poster %>
+       |
+        <%= link_to "Delete Post", post,
+        :confirm =>"Are you sure you want to delete the post titled, \"#{post.title}\" ?", :method => :delete %>
+      <% end %>
+      <hr></hr>
     </p>
+
   </ul>
 
 <% end %>

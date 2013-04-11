@@ -1,5 +1,9 @@
 <h1>Edit Post</h1>
 
+<% if current_user.admin != '1' && current_user.email != @post.poster %>
+  <% redirect_to posts_path, :notice => "You may only edit your own posts." %>
+<% end %>
+
 <%= form_for @post do |f| %>
 
   <% if @post.errors.any? %>

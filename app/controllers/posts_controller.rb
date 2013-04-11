@@ -23,6 +23,9 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    if current_user.admin == '0' && current_user.email != @post.poster
+      redirect_to posts_path, :notice => "You may only edit your own posts."
+    end
   end
 
   def update
@@ -31,14 +34,18 @@ class PostsController < ApplicationController
     if @post.update_attributes(params[:post])
       redirect_to posts_path, :notice => "The post has been updated."
     else
-      render 'edit'
+       render 'edit'
     end
   end
 
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
-    redirect_to posts_path, :notice => "The post has been deleted."
+    if current_user.admin == "1" || current_user.email == @post.poster
+      @post.destroy
+      redirect_to posts_path, :notice => "The post has been deleted."
+    else
+      redirect_to posts_path, :notice => "You do not have permission to delete that post."
+    end
   end
 
 end
