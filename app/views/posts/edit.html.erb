@@ -1,4 +1,6 @@
-<h1>Edit Post</h1>
+<div data-role="header", data-theme="e", data-position="fixed">
+  <h1>Editing Post</h1>
+</div>
 
 <% if current_user.admin != '1' && current_user.email != @post.poster %>
   <% redirect_to posts_path, :notice => "You may only edit your own posts." %>
@@ -25,3 +27,6 @@
     <%= f.submit "Update Post" %>
   </p>
 <% end %>
+
+<div data-role="footer" data-theme="e", class="ui-bar", data-position="fixed">
+</div>

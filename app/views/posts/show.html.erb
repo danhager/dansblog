@@ -1,5 +1,32 @@
-<h1>Individual Post</h1>
+<div data-role="header", data-theme="e", data-position="fixed">
+  <h1>Displaying Post</h1>
+    <% if current_user.admin == "1" || current_user.email == @post.poster %>
+      <%= button_to "Delete", @post, "data-theme" => "b", "data-icon" => "delete", "class" => "ui-btn-left",
+      :confirm =>"Are you sure you want to delete the post titled, \"#{@post.title}\" ?", :method => :delete %>
+    <% end %>
+</div>
 
-<h1><%= @post.title %></h1>
-<p><%= @post.content %></p>
+<div data-role="content">
+  <small><%= "Post date: " + @post.created_at.strftime("%B %d, %Y at %l:%M %p") %> </small> <br /> 
 
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p> 
+
+    <% if @post.editor != nil %>
+      <br />
+      <small><%= "Last edited by " + @post.editor.to_s + "; " + @post.updated_at.strftime("%B %d, %Y at %l:%M %p") %></small>
+    <% end %>
+
+  <div data-role="footer" data-theme="e", class="ui-bar", data-position="fixed">
+    <% if current_user.email == @post.poster %>
+      <center><%= "Posted by you!" %></center> <br />
+    <% else %>
+      <center><%= "Posted by " +  @post.poster.to_s %></center> <br />
+    <% end %>
+
+    <% if current_user.admin == "1" || current_user.email == @post.poster %>
+      <%= button_to "Edit", edit_post_path(@post), :method => "get", "class" => "ui-btn-left",
+      "data-theme" => "b", "data-icon" => "gear" %>
+    <% end %>
+  </div>
+<div>

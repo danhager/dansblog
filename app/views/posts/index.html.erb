@@ -1,35 +1,42 @@
-<div data-role='header'>
-  <h1>Posts</h1>
-  <p>A list of all of the posts.</p>
+<div data-role="header", data-theme="e", data-position="fixed">
+  <h1>Posts Index</h1>
+  <%= link_to 'Log Out',log_out_path, "data-theme"=>"e", "data-icon" => "back", "class" => "ui-btn-right" %>
+</div>
+  <% if current_user %>
+    <center>Logged in as <%= current_user.email %></center>
+  <% end %>
+
+<div data-role="content">
+  <ul data-role="listview">
+    <% @posts.each do |post| %>
+    <li>
+    <h2> <%= link_to post.title, post_path(post), "data-transition" => "flip" %></h2>
+      <small><%= "Post date: " + post.created_at.strftime("%B %d, %Y at %l:%M %p") %> </small> <br /> 
+      <small><%= "Posted by: " + post.poster.to_s %></small>
+      <br />
+      <p><%= post.content %></p>  
+
+      <% if post.editor != nil %>
+        <br />
+        <small><%= "Last edited by " + post.editor.to_s + "; " + 
+               post.updated_at.strftime("%B %d, %Y at %l:%M %p") %></small>
+      <% end %>
+
+      <p>
+        <% if current_user.admin == "1" || current_user.email == post.poster %>
+          <%= link_to "Edit Post", edit_post_path(post) %>
+        <% end %>
+        <% if current_user.admin == "1" || current_user.email == post.poster %>
+          |
+          <%= link_to "Delete Post", post,
+          :confirm =>"Are you sure you want to delete the post titled, \"#{post.title}\" ?", :method => :delete %>
+        <% end %>
+      </p>
+    </li>
+    <% end %>
+  </ul>
 </div>
 
-<% @posts.each do |post| %>
-  <ul>
-    <h2> <%= link_to post.title, post_path(post) %></h2>
-    <small><%= "Post date: " + post.created_at.strftime("%B %d, %Y at %l:%M %p") %> </small> <br /> 
-    <small><%= "Posted by: " + post.poster.to_s %></small>
-    <p><%= post.content %></p>  
-
-    <% if post.editor != nil %>
-      <br />
-      <small><%= "Last edited by " + post.editor.to_s + "; " + 
-             post.updated_at.strftime("%B %d, %Y at %l:%M %p") %></small>
-    <% end %>
-
-    <p>
-      <% if current_user.admin == "1" || current_user.email == post.poster %>
-        <%= link_to "Edit Post", edit_post_path(post) %>
-      <% end %>
-      <% if current_user.admin == "1" || current_user.email == post.poster %>
-       |
-        <%= link_to "Delete Post", post,
-        :confirm =>"Are you sure you want to delete the post titled, \"#{post.title}\" ?", :method => :delete %>
-      <% end %>
-      <hr></hr>
-    </p>
-
-  </ul>
-
-<% end %>
-
-<p><%= button_to "Create New Post", new_post_path, :method => "get" %></p>
+<div data-role="footer" data-theme="e", data-position="fixed">
+  <p><%= button_to "Create New Post", new_post_path, :method => "get", "data-theme" => "b", "data-inline" => "false" %></p>
+</div>
