@@ -1,7 +1,9 @@
 <div data-role="header", data-theme="e", data-position="fixed">
   <h1>Displaying Post</h1>
+      <%= link_to "Home", posts_path, "data-icon" => "home", "data-rel" => "back", "class" => "ui-btn-left" %>
     <% if current_user.admin == "1" || current_user.email == @post.poster %>
-      <%= button_to "Delete", @post, "data-theme" => "b", "data-icon" => "delete", "class" => "ui-btn-left",
+      <%= button_to "Delete", @post, 
+          "data-theme" => "b", "data-icon" => "delete", "class" => "ui-btn-right",
       :confirm =>"Are you sure you want to delete the post titled, \"#{@post.title}\" ?", :method => :delete %>
     <% end %>
 </div>

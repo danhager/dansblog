@@ -2,8 +2,6 @@ Dansblog::Application.routes.draw do
   get "log_in" => "sessions#new", :as => "log_in"
   get "log_out" => "sessions#destroy", :as => "log_out"
   root :to => "posts#index"
-  get "posts/index"
-  get "posts/show"
   get "sign_up" => "users#new", :as => "sign_up"
   
   resources :users
