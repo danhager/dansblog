@@ -1,11 +1,6 @@
 <div data-role="header", data-theme="e", data-position="fixed">
   <h1>Displaying Post</h1>
       <%= link_to "Home", posts_path, "data-icon" => "home", "data-rel" => "back", "class" => "ui-btn-left" %>
-    <% if current_user.admin == "1" || current_user.email == @post.poster %>
-      <%= button_to "Delete", @post, 
-          "data-theme" => "b", "data-icon" => "delete", "class" => "ui-btn-right",
-      :confirm =>"Are you sure you want to delete the post titled, \"#{@post.title}\" ?", :method => :delete %>
-    <% end %>
 </div>
 
 <div data-role="content">
@@ -18,17 +13,27 @@
       <br />
       <small><%= "Last edited by " + @post.editor.to_s + "; " + @post.updated_at.strftime("%B %d, %Y at %l:%M %p") %></small>
     <% end %>
+</div>
 
-  <div data-role="footer" data-theme="e", class="ui-bar", data-position="fixed">
-    <% if current_user.email == @post.poster %>
-      <center><%= "Posted by you!" %></center> <br />
-    <% else %>
-      <center><%= "Posted by " +  @post.poster.to_s %></center> <br />
-    <% end %>
-
-    <% if current_user.admin == "1" || current_user.email == @post.poster %>
-      <%= button_to "Edit", edit_post_path(@post), :method => "get", "class" => "ui-btn-left",
-      "data-theme" => "b", "data-icon" => "gear" %>
-    <% end %>
-  </div>
 <div>
+  <% if current_user.admin == "1" || current_user.email == @post.poster %>
+    <%= button_to "Edit", edit_post_path(@post), :method => "get",
+      "data-theme" => "b", "data-icon" => "gear", "data-inline" => "true" %>
+  <% end %>
+
+  <% if current_user.admin == "1" || current_user.email == @post.poster %>
+    <%= button_to "Delete", @post, 
+      "data-theme" => "b", "data-icon" => "delete", "data-inline" => "true",
+         :confirm =>"Are you sure you want to delete the post titled, \"#{@post.title}\" ?", :method => :delete %>
+  <% end %>
+</div>
+
+<div data-role="footer" data-theme="e", class="ui-bar", data-position="fixed">
+  <% if current_user.email == @post.poster %>
+    Posted by you!
+  <% else %>
+    <%= "Posted by " +  @post.poster.to_s %>
+  <% end %>
+
+  <br />
+</div>
