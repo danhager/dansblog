@@ -10,14 +10,15 @@
   <ul data-role="listview">
     <% @posts.each do |post| %>
     <li>
-    <h2> <%= link_to post.title, post_path(post), "data-transition" => "flip" %></h2>
-      <small><%= "Post date: " + post.created_at.strftime("%B %d, %Y at %l:%M %p") %> </small> <br /> 
-      <small><%= "Posted by: " + post.poster.to_s %></small>
+      <h1> <%= link_to post.title, post_path(post), "data-transition" => "flip" %></h1>
+      <%= "Author: " + post.poster.to_s %>
       <br />
       <p><%= post.content %></p>  
+      <br />
+      <p><%= "Post date: "%></p>
+        <p><%= post.created_at.strftime("%B %d, %Y at %l:%M %p") %></p> 
 
       <% if post.editor != nil %>
-        <br />
         <small><%= "Last edited by " + post.editor.to_s + "; " + 
                post.updated_at.strftime("%B %d, %Y at %l:%M %p") %></small>
       <% end %>
@@ -38,5 +39,8 @@
 </div>
 
 <div data-role="footer" data-theme="e", data-position="fixed">
+  <% if current_user %>
+    <center>Logged in as <%= current_user.email %></center>
+  <% end %>
   <p><%= button_to "Create New Post", new_post_path, :method => "get", "data-theme" => "b", "data-inline" => "false" %></p>
 </div>
