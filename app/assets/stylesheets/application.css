@@ -12,9 +12,8 @@
  *= require_tree .
  *= require jquery.mobile
  */
-
-h2
-{
+h1 {
+text-align: center;
 }
 
 html {
@@ -22,4 +21,8 @@ html {
 
 body
 {
+}
+
+.ui-footer {
+text-align: center;
 }

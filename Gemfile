@@ -21,6 +21,7 @@ group :test, :development do
   gem "factory_girl_rails", ">= 4.1.0"
   gem "rspec-rails", ">= 2.11.4"      
   gem "rspec", ">= 2.11.4"            
+  gem "cucumber-rails"
 end
 
 gem 'jquery-rails'

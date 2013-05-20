@@ -2,23 +2,24 @@
   <h1>Posts Index</h1>
   <%= link_to 'Log Out',log_out_path, "data-theme"=>"e", "data-icon" => "back", "class" => "ui-btn-right" %>
 </div>
+<div>
   <% if current_user %>
     <center>Logged in as <%= current_user.email %></center>
   <% end %>
+</div>
 
 <div data-role="content">
   <ul data-role="listview">
     <% @posts.each do |post| %>
     <li>
-      <h1> <%= link_to post.title, post_path(post), "data-transition" => "flip" %></h1>
-      <%= "Author: " + post.poster.to_s %>
+    <h2> <%= link_to post.title, post_path(post), "data-transition" => "flip" %></h2>
+      <small><%= "Post date: " + post.created_at.strftime("%B %d, %Y at %l:%M %p") %> </small> <br /> 
+      <small><%= "Posted by: " + post.poster.to_s %></small>
       <br />
       <p><%= post.content %></p>  
-      <br />
-      <p><%= "Post date: "%></p>
-        <p><%= post.created_at.strftime("%B %d, %Y at %l:%M %p") %></p> 
 
       <% if post.editor != nil %>
+        <br />
         <small><%= "Last edited by " + post.editor.to_s + "; " + 
                post.updated_at.strftime("%B %d, %Y at %l:%M %p") %></small>
       <% end %>
@@ -39,8 +40,6 @@
 </div>
 
 <div data-role="footer" data-theme="e", data-position="fixed">
-  <% if current_user %>
-    <center>Logged in as <%= current_user.email %></center>
-  <% end %>
+  <p><%= "Logged in as " + current_user.email %></p>
   <p><%= button_to "Create New Post", new_post_path, :method => "get", "data-theme" => "b", "data-inline" => "false" %></p>
 </div>
